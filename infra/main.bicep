@@ -6,12 +6,12 @@ resource containerAppResGroup 'Microsoft.Resources/resourceGroups@2021-01-01' = 
   location: location
 }
 
-// module containerAppEnvironment 'container_env.bicep' = {
-//   name: 'log_analytics'
-//   scope: containerAppResGroup
-//   params: {
-//     name: 'containerapp'
-//     sku: 'PerGB2018'
-//     retentionInDays: 30
-//   }
-// }
+module containerAppEnvironment 'log_analytics.bicep' = {
+  name: 'log_analytics'
+  scope: containerAppResGroup
+  params: {
+    location: location
+    sku: 'PerGB2018'
+    retentionInDays: 30
+  }
+}
