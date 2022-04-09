@@ -26,12 +26,10 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06
   }
 }
 
-resource env 'Microsoft.App/managedEnvironments@2021-02-01' = {
+resource env 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
   name: name
   location: location
   properties: {
-    type: 'managed'
-    internalLoadBalancerEnabled: false
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
