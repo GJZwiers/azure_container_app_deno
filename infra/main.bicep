@@ -12,7 +12,7 @@ module containerAppEnvironment 'container_env.bicep' = {
   params: {
     location: location
     sku: 'PerGB2018'
-    retentionInDays: 7
+    retentionInDays: 30
     name: 'containerapp_env'  
   }
 }
