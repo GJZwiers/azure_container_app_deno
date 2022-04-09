@@ -13,6 +13,7 @@ param sku string
 @maxValue(730)
 param retentionInDays int
 param location string
+param name string
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: 'containerapp-log-analytics-workspace'
@@ -22,5 +23,21 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06
       name: sku
     }
     retentionInDays: retentionInDays
+  }
+}
+
+resource env 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
+  name: name
+  location: location
+  properties: {
+    type: 'managed'
+    internalLoadBalancerEnabled: false
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: logAnalyticsWorkspace.properties.customerId
+        sharedKey: logAnalyticsWorkspace.listKeys().primarySharedKey
+      }
+    }
   }
 }
