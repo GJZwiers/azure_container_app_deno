@@ -1,0 +1,19 @@
+on: push
+name: Bicep deploy
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@main
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy Bicep files
+      uses: azure/arm-deploy@v1
+      with:
+        template: ./infra/main.bicep
+        scope: subscription
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        region: westeurope
