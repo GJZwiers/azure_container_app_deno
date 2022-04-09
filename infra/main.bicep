@@ -13,6 +13,6 @@ module containerAppEnvironment 'container_env.bicep' = {
     location: location
     sku: 'PerGB2018'
     retentionInDays: 30
-    name: 'containerapp_env'  
+    name: 'environment'  
   }
 }
