@@ -33,7 +33,7 @@ resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
     configuration: {
       ingress: {
         external: true
-        targetPort: 80
+        targetPort: 8080
       }
       secrets: [
         {
