@@ -16,7 +16,7 @@ resource acrResource 'Microsoft.ContainerRegistry/registries@2021-09-01' = {
     name: acrSku
   }
   properties: {
-    adminUserEnabled: false
+    adminUserEnabled: true
   }
 }
 
