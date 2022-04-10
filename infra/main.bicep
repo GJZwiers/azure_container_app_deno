@@ -23,6 +23,6 @@ module containerApp 'container_app.bicep' = {
   params: {
     location: location
     storagePrefix: 'cterstore'
-    environment_name: containerAppEnvironment.name
+    environment_name: containerAppEnvironment.outputs.environmentName
   }
 }

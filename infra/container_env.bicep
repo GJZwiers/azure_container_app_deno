@@ -39,3 +39,5 @@ resource env 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
     }
   }
 }
+
+output environmentName string = env.name
