@@ -8,6 +8,8 @@ param storagePrefix string
 param storageSKU string = 'Standard_RAGRS'
 param location string = resourceGroup().location
 param environment_name string
+@secure()
+param acr_admin_password string
 
 var uniqueStorageName = '${storagePrefix}${uniqueString(resourceGroup().id)}'
 
@@ -38,13 +40,24 @@ resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
           name: 'storage-key'
           value: listKeys(stg.id, stg.apiVersion).keys[0].value
         }
+        {
+          name: 'acr-admin-password'
+          value: acr_admin_password
+        }
+      ]
+      registries: [
+        {
+          server: 'acr3nre3qrjggrs2.azurecr.io'
+          username: 'acr3nre3qrjggrs2'
+          passwordSecretRef: 'acr-admin-password'
+        }
       ]
     }
     template: {
       containers: [
         {
-          image: 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-          name: 'hello-world'
+          image: 'acr3nre3qrjggrs2.azurecr.io/deno/hello:latest'
+          name: 'hello-deno'
           resources: {
             cpu: 1
             memory: '2Gi'
@@ -58,4 +71,3 @@ resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
     }
   }
 }
-

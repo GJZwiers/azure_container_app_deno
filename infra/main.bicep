@@ -17,6 +17,11 @@ module containerAppEnvironment 'container_env.bicep' = {
   }
 }
 
+resource kv 'Microsoft.KeyVault/vaults@2019-09-01' existing = {
+  name: 'container-app-key-vault'
+  scope: containerAppResGroup
+}
+
 module containerApp 'container_app.bicep' = {
   name: 'containerapp'
   scope: containerAppResGroup
@@ -24,6 +29,7 @@ module containerApp 'container_app.bicep' = {
     location: location
     storagePrefix: 'cterstore'
     environment_name: containerAppEnvironment.outputs.environmentName
+    acr_admin_password: kv.getSecret('acr-admin-password')
   }
 }
 
@@ -32,13 +38,5 @@ module containerRegistry 'container_registry.bicep' = {
   scope: containerAppResGroup
   params: {
     location: location
-  }
-}
-
-module vault 'keyvault.bicep' = {
-  name: 'vault'
-  scope: containerAppResGroup
-  params: {
-    kvName: 'container-app-key-vault'
   }
 }
