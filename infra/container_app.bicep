@@ -46,7 +46,7 @@ resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
           image: 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
           name: 'hello-world'
           resources: {
-            cpu: 1
+            cpu: '0.5'
             memory: '1Gi'
           }
         }
