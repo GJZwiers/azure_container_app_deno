@@ -24,7 +24,7 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-04-01' = {
 }
 
 resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
-  name: 'hello container app'
+  name: 'hello-container-app'
   location: location
   properties: {
     managedEnvironmentId: resourceId('Microsoft.App/managedEnvironments', environment_name)
