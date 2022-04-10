@@ -1,6 +1,7 @@
 @minLength(3)
 @maxLength(11)
 param storagePrefix string
+
 @allowed([
   'Standard_RAGRS'
   'Standard_RAGZRS'
@@ -8,6 +9,7 @@ param storagePrefix string
 param storageSKU string = 'Standard_RAGRS'
 param location string = resourceGroup().location
 param environment_name string
+
 @secure()
 param acr_admin_password string
 
