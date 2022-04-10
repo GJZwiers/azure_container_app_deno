@@ -16,3 +16,13 @@ module containerAppEnvironment 'container_env.bicep' = {
     name: 'environment'  
   }
 }
+
+module containerApp 'container_app.bicep' = {
+  name: 'containerapp'
+  scope: containerAppResGroup
+  params: {
+    location: location
+    storagePrefix: 'cterstore'
+    environment_name: containerAppEnvironment.name
+  }
+}
