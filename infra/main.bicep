@@ -26,3 +26,11 @@ module containerApp 'container_app.bicep' = {
     environment_name: containerAppEnvironment.outputs.environmentName
   }
 }
+
+module containerRegistry 'container_registry.bicep' = {
+  name: 'container_registry'
+  scope: containerAppResGroup
+  params: {
+    location: location
+  }
+}

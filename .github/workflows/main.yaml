@@ -17,4 +17,4 @@ jobs:
         scope: subscription
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
-        failOnStdErr: false
+        failOnStdErr: true
