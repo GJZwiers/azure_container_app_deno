@@ -34,3 +34,11 @@ module containerRegistry 'container_registry.bicep' = {
     location: location
   }
 }
+
+module vault 'keyvault.bicep' = {
+  name: 'vault'
+  scope: containerAppResGroup
+  params: {
+    kvName: 'container-app-key-vault'
+  }
+}
