@@ -1,2 +1,5 @@
 # azure_deno
-Azure Container App running Deno
+
+(work in progress)
+
+This repository contains an Azure Container App running a Deno image, deployed using Azure Bicep.
