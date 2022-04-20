@@ -33,19 +33,12 @@ jobs:
         git_access_token: ${{ secrets.GIT_ACCESS_TOKEN }}
         branch: main
 
-    # - name: Docker Build and Push
-    #   run: |
-    #     az acr login --name ${{ steps.registry.outputs.registryName }}
-    #     TAG=${{ github.sha }}
-    #     docker build -t ${{ steps.registry.outputs.loginServer }}:$TAG .
-    #     docker push ${{ steps.registry.outputs.loginServer }}:$TAG
-
-    # - name: Deploy Bicep files
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     template: ./infra/main.bicep
-    #     scope: subscription
-    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-    #     region: westeurope
-    #     failOnStdErr: true
-    #     parameters: registryName=${{ steps.registry.outputs.registryName }} registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }} loginServer=${{ steps.registry.outputs.loginServer }} subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
+    - name: Deploy Bicep files
+      uses: azure/arm-deploy@v1
+      with:
+        template: ./infra/main.bicep
+        scope: subscription
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        region: westeurope
+        failOnStdErr: true
+        parameters: tag=${{ github.sha }} registryName=${{ steps.registry.outputs.registryName }} registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }} subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}

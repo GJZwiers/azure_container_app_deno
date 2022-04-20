@@ -1,9 +1,9 @@
 param location string = resourceGroup().location
 param environmentName string
-param loginServer string
 param registryName string
 param subscriptionId string
 param registryResourceGroup string
+param tag string
 
 resource acr 'Microsoft.ContainerRegistry/registries@2021-09-01' existing = {
   name: registryName
@@ -28,8 +28,8 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
       ]
       registries: [
         {
-          server: loginServer
-          username: registryName
+          server: acr.properties.loginServer
+          username: acr.name
           passwordSecretRef: 'acrAdminPassword'
         }
       ]
@@ -37,7 +37,7 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
     template: {
       containers: [
         {
-          image: '${loginServer}/deno/hello:latest'
+          image: '${acr.properties.loginServer}/dev/deno:${tag}'
           name: 'helloDeno'
           resources: {
             cpu: 1

@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 param location string = 'westeurope'
 param registryName string
-param loginServer string
+param tag string
 param registryResourceGroup string
 @secure()
 param subscriptionId string
@@ -29,8 +29,8 @@ module containerApp 'container_app.bicep' = {
     location: location
     environmentName: containerAppEnvironment.outputs.environmentName
     registryName: registryName
-    loginServer: loginServer
     registryResourceGroup: registryResourceGroup
     subscriptionId: subscriptionId
+    tag: tag
   }
 }
