@@ -1,37 +1,12 @@
-@minLength(3)
-@maxLength(11)
-param storagePrefix string
-
-@allowed([
-  'Standard_RAGRS'
-  'Standard_RAGZRS'
-])
-param storageSKU string = 'Standard_RAGRS'
 param location string = resourceGroup().location
-param environment_name string
+param environmentName string
+param registryName string
 
-@secure()
-param acr_admin_password string
-
-var uniqueStorageName = '${storagePrefix}${uniqueString(resourceGroup().id)}'
-
-resource stg 'Microsoft.Storage/storageAccounts@2021-04-01' = {
-  name: uniqueStorageName
-  location: location
-  sku: {
-    name: storageSKU
-  }
-  kind: 'StorageV2'
-  properties: {
-    supportsHttpsTrafficOnly: true
-  }
-}
-
-resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
+resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
   name: 'hello-container-app'
   location: location
   properties: {
-    managedEnvironmentId: resourceId('Microsoft.App/managedEnvironments', environment_name)
+    managedEnvironmentId: resourceId('Microsoft.App/managedEnvironments', environmentName)
     configuration: {
       ingress: {
         external: true
@@ -39,12 +14,8 @@ resource nodeapp 'Microsoft.App/containerapps@2022-01-01-preview' = {
       }
       secrets: [
         {
-          name: 'storage-key'
-          value: listKeys(stg.id, stg.apiVersion).keys[0].value
-        }
-        {
           name: 'acr-admin-password'
-          value: acr_admin_password
+          value: 'foo' // acr.listCredentials().passwords[0].value
         }
       ]
       registries: [

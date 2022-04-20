@@ -10,11 +10,27 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy Bicep files
+    - name: Deploy Container Registry
+      id: registry
       uses: azure/arm-deploy@v1
       with:
-        template: ./infra/main.bicep
+        template: ./infra/registry/main.bicep
         scope: subscription
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
-        failOnStdErr: true
+
+    - run: echo ${{ steps.registry.outputs.registryName }}
+
+    # login to acr
+    # docker tag
+    # docker push
+
+    # - name: Deploy Bicep files
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     template: ./infra/main.bicep
+    #     scope: subscription
+    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+    #     region: westeurope
+    #     failOnStdErr: true
+    #     parameters: ${{ steps.registry.outputs.registryName }}
