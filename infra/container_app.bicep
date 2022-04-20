@@ -38,7 +38,7 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
       containers: [
         {
           image: '${acr.properties.loginServer}/dev/deno:${tag}'
-          name: 'helloDeno'
+          name: 'hello-deno'
           resources: {
             cpu: 1
             memory: '2Gi'
