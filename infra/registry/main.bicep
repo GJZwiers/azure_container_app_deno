@@ -10,7 +10,7 @@ module containerRegistry 'container_registry.bicep' = {
   name: 'container-registry'
   scope: registryResourceGroup
   params: {
-    acrName: 'container-app-acr'
+    acrName: 'containerAppRegistry'
     acrSku: 'Basic'
     location: location
   }
