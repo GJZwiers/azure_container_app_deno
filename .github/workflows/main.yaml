@@ -23,8 +23,8 @@ jobs:
       run: |
         az acr login --name ${{ steps.registry.outputs.registryName }}
         TAG=${{ github.sha }}
-        docker build -t ${{ steps.registry.outputs.registryName }}:$TAG .
-        docker push ${{ steps.registry.outputs.registryName }}:$TAG
+        docker build -t ${{ steps.registry.outputs.loginServer }}:$TAG .
+        docker push ${{ steps.registry.outputs.loginServer }}:$TAG
 
     # - name: Deploy Bicep files
     #   uses: azure/arm-deploy@v1
