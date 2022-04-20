@@ -22,7 +22,7 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
       }
       secrets: [
         {
-          name: 'acrAdminPassword'
+          name: 'acr-admin-password'
           value: acr.listCredentials().passwords[0].value
         }
       ]
@@ -30,7 +30,7 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
         {
           server: acr.properties.loginServer
           username: acr.name
-          passwordSecretRef: 'acrAdminPassword'
+          passwordSecretRef: 'acr-admin-password'
         }
       ]
     }
