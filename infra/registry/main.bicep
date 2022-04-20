@@ -10,10 +10,12 @@ module containerRegistry 'container_registry.bicep' = {
   name: 'container-registry'
   scope: registryResourceGroup
   params: {
-    acrName: 'containerAppRegistry'
+    acrName: 'containerappregistry'
     acrSku: 'Basic'
     location: location
   }
 }
 
 output registryName string = containerRegistry.outputs.registryName
+output loginServer string = containerRegistry.outputs.loginServer
+output resourceGroupName string = registryResourceGroup.name

@@ -1,6 +1,10 @@
 targetScope = 'subscription'
 param location string = 'westeurope'
 param registryName string
+param loginServer string
+param registryResourceGroup string
+@secure()
+param subscriptionId string
 
 resource containerAppResGroup 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: 'container-app-res-group'
@@ -25,5 +29,8 @@ module containerApp 'container_app.bicep' = {
     location: location
     environmentName: containerAppEnvironment.outputs.environmentName
     registryName: registryName
+    loginServer: loginServer
+    registryResourceGroup: registryResourceGroup
+    subscriptionId: subscriptionId
   }
 }

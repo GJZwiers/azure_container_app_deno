@@ -19,11 +19,11 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
 
-    - run: echo ${{ steps.registry.outputs.registryName }}
-
-    # login to acr
-    # docker tag
-    # docker push
+    - name: Docker Build and Push
+      run: |
+        az acr login --name ${{ steps.registry.outputs.registryName }}
+        docker build -t ${{ steps.registry.outputs.registryName }}:${{ github.sha }} .
+        docker push ${{ steps.registry.outputs.registryName }}
 
     # - name: Deploy Bicep files
     #   uses: azure/arm-deploy@v1
@@ -33,4 +33,4 @@ jobs:
     #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
     #     region: westeurope
     #     failOnStdErr: true
-    #     parameters: ${{ steps.registry.outputs.registryName }}
+    #     parameters: registryName=${{ steps.registry.outputs.registryName }} registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }} loginServer=${{ steps.registry.outputs.loginServer }} subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
