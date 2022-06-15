@@ -10,7 +10,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2021-09-01' existing = {
   scope: resourceGroup(subscriptionId, registryResourceGroup )
 }
 
-resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
+resource denoContainerApp 'Microsoft.App/containerapps@2022-03-01' = {
   name: 'denocontainerapp'
   location: location
   properties: {
@@ -50,5 +50,8 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
         maxReplicas: 1
       }
     }
+  }
+  tags: {
+    'App': 'DenoContainerApp'
   }
 }
