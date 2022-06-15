@@ -46,7 +46,7 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-01-01-preview' = {
         }
       ]
       scale: {
-        minReplicas: 1
+        minReplicas: 0
         maxReplicas: 1
       }
     }
