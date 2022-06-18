@@ -1,4 +1,4 @@
-FROM denoland/deno:1.22.2
+FROM denoland/deno:1.23.0
 
 EXPOSE 8080
 
