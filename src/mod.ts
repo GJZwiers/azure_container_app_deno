@@ -1,14 +1,11 @@
-import { opine, type OpineRequest, OpineResponse } from "https://deno.land/x/opine@2.2.0/mod.ts";
+import { serve } from "https://deno.land/std@0.143.0/http/server.ts";
+import * as log from "https://deno.land/std@0.143.0/log/mod.ts";
 
-const app = opine();
+function handler(_req: Request): Response {
+  log.info("Received request.");
+  return new Response("Hello, World!");
+}
 
-app.get("/", function (req: OpineRequest, res: OpineResponse) {
-  console.log(req);
-  
-  res.send("Hello World");
-});
+serve(handler, { port: 8080 });
 
-app.listen(
-  3000,
-  () => console.log("server has started on http://localhost:3000 🚀"),
-);
+log.info("Server running on port 8080.");
