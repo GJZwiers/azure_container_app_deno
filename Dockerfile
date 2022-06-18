@@ -10,4 +10,4 @@ ADD src/ .
 
 RUN deno cache mod.ts
 
-CMD [ "run", "--allow-net", "--allow-read=./" ,"mod.ts" ]
+CMD [ "run", "--allow-net", "--allow-read", "mod.ts" ]
