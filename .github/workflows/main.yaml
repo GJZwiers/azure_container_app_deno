@@ -10,7 +10,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy Container Registry
+    - name: Deploy container registry
       id: registry
       uses: azure/arm-deploy@v1
       with:
@@ -19,7 +19,7 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
 
-    - name: ACR build
+    - name: Build image
       id: acr
       uses: azure/acr-build@v1
       with:
@@ -27,13 +27,13 @@ jobs:
         service_principal_password: ${{ secrets.AZ_SP_CLIENT_SECRET }}
         tenant: ${{ secrets.TENANT }}
         registry: ${{ steps.registry.outputs.registryName }}
-        repository: dev
-        image: deno
+        repository: server
+        image: dev
         tag: ${{ github.sha }}
         git_access_token: ${{ secrets.GIT_ACCESS_TOKEN }}
         branch: main
 
-    - name: Deploy Bicep files
+    - name: Deploy infrastructure
       uses: azure/arm-deploy@v1
       with:
         template: ./infra/main.bicep
@@ -41,4 +41,8 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
         failOnStdErr: true
-        parameters: tag=${{ github.sha }} registryName=${{ steps.registry.outputs.registryName }} registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }} subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
+        parameters: |
+          tag=${{ github.sha }} \
+          registryName=${{ steps.registry.outputs.registryName }} \
+          registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }} \
+          subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
