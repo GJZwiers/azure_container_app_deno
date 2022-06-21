@@ -7,7 +7,7 @@ param tag string
 
 resource acr 'Microsoft.ContainerRegistry/registries@2021-09-01' existing = {
   name: registryName
-  scope: resourceGroup(subscriptionId, registryResourceGroup )
+  scope: resourceGroup(subscriptionId, registryResourceGroup)
 }
 
 resource denoContainerApp 'Microsoft.App/containerapps@2022-03-01' = {
@@ -37,7 +37,7 @@ resource denoContainerApp 'Microsoft.App/containerapps@2022-03-01' = {
     template: {
       containers: [
         {
-          image: '${acr.properties.loginServer}/dev/deno:${tag}'
+          image: '${acr.properties.loginServer}/server/dev:${tag}'
           name: 'hello-deno'
           resources: {
             cpu: 1
