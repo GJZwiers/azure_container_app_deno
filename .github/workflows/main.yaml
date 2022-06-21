@@ -41,7 +41,7 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
         failOnStdErr: true
-        parameters: |
+        parameters: >
           tag=${{ github.sha }}
           registryName=${{ steps.registry.outputs.registryName }}
           registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }}
