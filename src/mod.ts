@@ -2,7 +2,7 @@ import { opine } from "https://deno.land/x/opine@2.2.0/mod.ts";
 
 const app = opine();
 
-const port = parseInt(Deno.env.get("PORT") ?? "8080");
+const port: string = Deno.env.get("PORT") ?? "8080";
 
 // deno-lint-ignore require-await
 app.get("/", async (_req, res) => {
@@ -15,6 +15,6 @@ app.get("/health", (_req, res) => {
 });
 
 app.listen(
-  port,
-  () => console.log(`Server has started on http://localhost:${port} 🚀`),
+  parseInt(port),
+  () => console.log(`Server listening on port ${port}.`),
 );
