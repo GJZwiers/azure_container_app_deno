@@ -10,7 +10,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2021-
 
 resource role 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' = {
   name: 'containerapp_registry_read_access'
-  // scope: managedIdentity
+  scope: managedIdentity
   properties: {
     permissions: [
       {
