@@ -11,6 +11,14 @@ resource containerAppResGroup 'Microsoft.Resources/resourceGroups@2021-01-01' = 
   location: location
 }
 
+module roles 'roles.bicep' = {
+  name: 'roles'
+  scope: containerAppResGroup
+  params: {
+    location: location
+  }
+}
+
 module containerAppEnvironment 'container_env.bicep' = {
   name: 'log_analytics'
   scope: containerAppResGroup
