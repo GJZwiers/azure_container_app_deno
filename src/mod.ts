@@ -2,7 +2,7 @@ import { opine } from "https://deno.land/x/opine@2.2.0/mod.ts";
 
 const app = opine();
 
-const port: string = Deno.env.get("PORT") ?? "8080";
+const port = Deno.env.get("PORT") ?? "8080";
 
 // deno-lint-ignore require-await
 app.get("/", async (_req, res) => {
