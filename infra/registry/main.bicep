@@ -4,7 +4,7 @@ param location string = 'westeurope'
 module containerRegistry 'container_registry.bicep' = {
   name: 'ctnr_registry'
   params: {
-    acrName: 'ctnr_app_registry'
+    acrName: 'ctnrAppRegistry'
     acrSku: 'Basic'
     location: location
   }
