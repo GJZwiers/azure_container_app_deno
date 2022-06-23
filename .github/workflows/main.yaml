@@ -67,5 +67,5 @@ jobs:
         parameters: >
           tag=${{ github.sha }}
           registryName=${{ steps.registry.outputs.registryName }}
-          registryResourceGroup=${{ steps.registry.outputs.resourceGroupName }}
+          registryResourceGroup=${{ needs.resource_groups.outputs.ctnrAppRgName }}
           subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
