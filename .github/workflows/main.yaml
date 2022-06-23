@@ -19,8 +19,8 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
     outputs:
-      registryRGName: steps.resourcegroups.outputs.registryRGName
-      ctnrAppRgName: steps.resourcegroups.outputs.ctnrAppRgName
+      registryRGName: ${{ steps.resourcegroups.outputs.registryRGName }}
+      ctnrAppRgName: ${{ steps.resourcegroups.outputs.ctnrAppRgName }}
 
   build_and_deploy:
     needs: resource_groups
