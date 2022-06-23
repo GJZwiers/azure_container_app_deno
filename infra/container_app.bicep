@@ -11,7 +11,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2021-09-01' existing = {
 }
 
 resource denoContainerApp 'Microsoft.App/containerapps@2022-03-01' = {
-  name: 'deno_ctnr_app'
+  name: 'deno-ctnr-app'
   location: location
   properties: {
     managedEnvironmentId: resourceId('Microsoft.App/managedEnvironments', environmentName)
