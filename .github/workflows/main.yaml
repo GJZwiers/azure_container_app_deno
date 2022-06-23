@@ -37,7 +37,7 @@ jobs:
       with:
         template: ./infra/registry/main.bicep
         scope: resourcegroup
-        resourceGroupName: ${{ needs.resourcegroups.outputs.registryRGName }}
+        resourceGroupName: ${{ needs.resource_groups.outputs.registryRGName }}
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
 
@@ -60,7 +60,7 @@ jobs:
       with:
         template: ./infra/main.bicep
         scope: resourcegroup
-        resourceGroupName: ${{ needs.resourcegroups.outputs.ctnrAppRgName }}
+        resourceGroupName: ${{ needs.resource_groups.outputs.ctnrAppRgName }}
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         region: westeurope
         failOnStdErr: true
