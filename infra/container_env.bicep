@@ -16,7 +16,7 @@ param location string
 param name string
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
-  name: 'ctnrAppWorkspace'
+  name: 'ctnr-app-workspace'
   location: location
   properties: {
     sku: {
