@@ -1,4 +1,4 @@
-targetScope = 'subscription'
+targetScope = 'resourceGroup'
 param location string = 'westeurope'
 param registryName string
 param tag string
@@ -6,14 +6,8 @@ param registryResourceGroup string
 @secure()
 param subscriptionId string
 
-resource containerAppResGroup 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: 'container-app-res-group'
-  location: location
-}
-
 module containerAppEnvironment 'container_env.bicep' = {
   name: 'log_analytics'
-  scope: containerAppResGroup
   params: {
     location: location
     sku: 'PerGB2018'
@@ -23,8 +17,7 @@ module containerAppEnvironment 'container_env.bicep' = {
 }
 
 module containerApp 'container_app.bicep' = {
-  name: 'containerapp'
-  scope: containerAppResGroup
+  name: 'ctnr_app'
   params: {
     location: location
     environmentName: containerAppEnvironment.outputs.environmentName

@@ -1,16 +1,10 @@
-targetScope = 'subscription'
+targetScope = 'resourceGroup'
 param location string = 'westeurope'
 
-resource registryResourceGroup 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: 'ctnr-registry-rg'
-  location: location
-}
-
 module containerRegistry 'container_registry.bicep' = {
-  name: 'container-registry'
-  scope: registryResourceGroup
+  name: 'ctnr_registry'
   params: {
-    acrName: 'containerappregistry'
+    acrName: 'ctnr_app_registry'
     acrSku: 'Basic'
     location: location
   }
@@ -18,4 +12,3 @@ module containerRegistry 'container_registry.bicep' = {
 
 output registryName string = containerRegistry.outputs.registryName
 output loginServer string = containerRegistry.outputs.loginServer
-output resourceGroupName string = registryResourceGroup.name
