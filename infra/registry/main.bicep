@@ -2,7 +2,7 @@ targetScope = 'subscription'
 param location string = 'westeurope'
 
 resource registryResourceGroup 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: 'container-registry-resource-group'
+  name: 'container-registry-rg'
   location: location
 }
 
