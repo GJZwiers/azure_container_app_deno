@@ -43,7 +43,9 @@ jobs:
         jq -r '.clientSecret' client.json | gh secret set AZ_SP_CLIENT_SECRET      
 
   build_and_deploy:
-    needs: resource_groups
+    needs: 
+    - resource_groups
+    - service_principal
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@main
