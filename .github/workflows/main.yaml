@@ -23,8 +23,7 @@ jobs:
       ctnrAppRgName: ${{ steps.resourcegroups.outputs.ctnrAppRgName }}
 
   build_and_deploy:
-    needs: 
-    - resource_groups
+    needs: resource_groups
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@main
@@ -70,13 +69,3 @@ jobs:
           registryName=${{ steps.registry.outputs.registryName }}
           registryResourceGroup=${{ needs.resource_groups.outputs.registryRGName }}
           subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
-
-
-#  ***
-#   "appId": "db4c1a31-0ae6-4166-8ec9-d25fde4e92f0",
-#   "displayName": "azure-cli-2022-06-25-08-48-29",
-#   "password": "hvx8Q~bjJLVGU2uYNs4~BKRKDSd5BShIuhoFgbRV",
-#   "tenant": "***"
-# ***
-# /home/runner/work/_temp/99f689ba-88d2-4610-9329-de4183f3e3f9.sh: line 2: --name: command not found
-# Error: Process completed with exit code 127.
