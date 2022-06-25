@@ -34,12 +34,12 @@ jobs:
         sudo apt update
         sudo apt install -y jq
     - run: |
-        az ad sp create-for-rbac
-        --name "myApp"
-        --role contributor
-        --scopes /subscriptions/${{ secrets.AZ_SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ needs.resource_groups.outputs.registryRGName }}
-        --sdk-auth > client.json
-        jq -r '.clientId' client.json | gh secret set AZ_SP_CLIENT_ID
+        az ad sp create-for-rbac \
+        --name "myApp" \
+        --role contributor \
+        --scopes /subscriptions/${{ secrets.AZ_SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ needs.resource_groups.outputs.registryRGName }} \
+        --sdk-auth > client.json \
+        jq -r '.clientId' client.json | gh secret set AZ_SP_CLIENT_ID \
         jq -r '.clientSecret' client.json | gh secret set AZ_SP_CLIENT_SECRET      
 
   build_and_deploy:
@@ -91,3 +91,13 @@ jobs:
           registryName=${{ steps.registry.outputs.registryName }}
           registryResourceGroup=${{ needs.resource_groups.outputs.registryRGName }}
           subscriptionId=${{ secrets.AZURE_SUBSCRIPTION }}
+
+
+#  ***
+#   "appId": "db4c1a31-0ae6-4166-8ec9-d25fde4e92f0",
+#   "displayName": "azure-cli-2022-06-25-08-48-29",
+#   "password": "hvx8Q~bjJLVGU2uYNs4~BKRKDSd5BShIuhoFgbRV",
+#   "tenant": "***"
+# ***
+# /home/runner/work/_temp/99f689ba-88d2-4610-9329-de4183f3e3f9.sh: line 2: --name: command not found
+# Error: Process completed with exit code 127.
