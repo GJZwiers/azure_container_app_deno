@@ -40,7 +40,9 @@ jobs:
         --scopes /subscriptions/${{ secrets.AZ_SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ needs.resource_groups.outputs.registryRGName }} \
         --sdk-auth > client.json
         jq -r '.clientId' client.json | gh secret set AZ_SP_CLIENT_ID
-        jq -r '.clientSecret' client.json | gh secret set AZ_SP_CLIENT_SECRET      
+        jq -r '.clientSecret' client.json | gh secret set AZ_SP_CLIENT_SECRET  
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
 
   build_and_deploy:
     needs: 
