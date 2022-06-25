@@ -22,6 +22,26 @@ jobs:
       registryRGName: ${{ steps.resourcegroups.outputs.registryRGName }}
       ctnrAppRgName: ${{ steps.resourcegroups.outputs.ctnrAppRgName }}
 
+  service_principal:
+    needs: resource_groups
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - run: |
+        sudo apt update
+        sudo apt install -y jq
+    - run: |
+        az ad sp create-for-rbac
+        --name "myApp"
+        --role contributor
+        --scopes /subscriptions/${{ secrets.AZ_SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ needs.resource_groups.outputs.registryRGName }}
+        --sdk-auth > client.json
+        jq -r '.clientId' client.json | gh secret set AZ_SP_CLIENT_ID
+        jq -r '.clientSecret' client.json | gh secret set AZ_SP_CLIENT_SECRET      
+
   build_and_deploy:
     needs: resource_groups
     runs-on: ubuntu-20.04
